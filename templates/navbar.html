@@ -1,0 +1,49 @@
+{% load static%}
+{% if request.user.is_authenticated %}
+   <ul id="side-nav" class="side-nav">
+          <li>
+            <div class="user-view">
+              <div class="background">
+                <img src="{% static 'img/ocean.jpg' %}" alt="">
+              </div>
+              <a href="#">
+                <img src="{% static 'img/person1.jpg' %}" alt="" class="circle">
+              </a>
+              <a href="#">
+                <span class="name white-text">{{user.username}}</span>
+              </a>
+              <a href="#">
+                <span class="email white-text">{{user.email}}</span>
+              </a>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'home' %}">
+              <i class="material-icons">dashboard</i> Dashboard</a>
+          </li>
+          <li>
+            <a href="{% url 'posts' %}">Posts</a>
+          </li>
+          <li>
+            <a href="{% url 'categories' %}">Categories</a>
+          </li>
+          <li>
+            <a href="{% url 'comments' %}">Comments</a>
+          </li>
+          <li>
+            <a href="{% url 'register' %}">Users</a>
+          </li>
+          <li>
+            <div class="divider"></div>
+          </li>
+          <li>
+            <a class="subheader">Account Controls</a>
+          </li>
+          <li>
+            <a href="{% url 'login' %}" class="waves-effect">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+{% endif %}
