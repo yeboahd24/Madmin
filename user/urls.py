@@ -10,5 +10,6 @@ urlpatterns = [
     path('posts/', post, name="posts"),
     path('comments/', comments, name='comments'),
     path('logout/', logout_view, name='logout'),
+
     
 ]

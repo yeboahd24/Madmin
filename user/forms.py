@@ -24,7 +24,8 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class CategoryForm(forms.ModelForm):
-    model = Category
-    fields = '__all__'
-
+    
+    class Meta:
+        model = Category
+        fields = ('title', 'category', 'body')
 

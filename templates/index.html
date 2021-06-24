@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load widget_tweaks %}
+
 <html>
   <head>
     <!--Import Google Icon Font-->
@@ -229,16 +231,6 @@
       </a>
       <ul>
         <li>
-          <a href="#post-modal" class="modal-trigger btn-floating blue">
-            <i class="material-icons">mode_edit</i>
-          </a>
-        </li>
-        <li>
-          <a href="#category-modal" class="modal-trigger btn-floating blue">
-            <i class="material-icons">folder</i>
-          </a>
-        </li>
-        <li>
           <a href="#user-modal" class="modal-trigger btn-floating blue">
             <i class="material-icons">supervisor_account</i>
           </a>
@@ -246,62 +238,7 @@
       </ul>
     </div>
 
-    <!-- Add Post Modal -->
-    <div id="post-modal" class="modal">
-      <div class="modal-content">
-        <h4>Add Post</h4>
-        <form method="POST">{% csrf_token %}
-          <div class="input-field">
-            <input type="text" id="title" name="title"/>
-            <label for="title">Title</label>
-          </div>
-          <div class="input-field">
-            <select name="category">
-              <option value="" disabled selected>Select option</option>
-              <option value="1">Web Development</option>
-              <option value="2">Graphic Design</option>
-              <option value="3">Tech Gadgets</option>
-              <option value="4">Other</option>
-            </select>
-            <label>Category</label>
-          </div>
-          <div class="input-field">
-            <textarea
-              name="body"
-              id="body"
-              class="materialize-textarea"
-            ></textarea>
-            <label for="body">Body</label>
-          </div>
-
-              <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-large btn-extended blue lighten-4 black-text"
-                />
-        </form>
-
-      </div>
-    </div>
-
-    <!-- Add Category Modal -->
-    <div id="category-modal" class="modal">
-      <div class="modal-content">
-        <h4>Add Category</h4>
-        <form method="POST">{% csrf_token %}
-          <div class="input-field">
-            <input type="text" id="title" name="title2"/>
-            <label for="title">Title</label>
-          </div>
-
-              <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-large btn-extended blue lighten-4 black-text"
-                />
-        </form>
-      </div>
-    </div>
+   
 
     <!-- Add User Modal -->
     <div id="user-modal" class="modal">
@@ -333,7 +270,6 @@
         </form>
       </div>
     </div>
-
     <!-- Preloader -->
     <div class="loader preloader-wrapper big active">
       <div class="spinner-layer spinner-blue-only">

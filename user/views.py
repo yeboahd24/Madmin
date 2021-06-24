@@ -1,11 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, UserRegistrationForm, CategoryForm
+from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, CreateView
-from .models import CategoryIndexTitle, Category
-
+from .models import  Category
+from datetime import date
 
 def login_view(request):
 
@@ -112,7 +111,13 @@ def list_categories(request):
 
 
 def post(request):
-    category = Category.objects.all()
+    category = Category.objects.all() # displaying all categories
+    cat = Category()
+    if request.method == 'POST':
+        cat.title = request.POST.get('title')
+        cat.category = request.POST.get('category')
+        cat.body = request.POST.get('body')
+        cat.save()
     return render(request, 'posts.html', {'categories':category})
 
 
@@ -124,3 +129,22 @@ def comments(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
