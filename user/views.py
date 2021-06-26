@@ -5,6 +5,8 @@ from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
 from .models import  Category
 from datetime import date
+from django.http import JsonResponse
+
 
 def login_view(request):
 
@@ -24,7 +26,7 @@ def login_view(request):
                 return HttpResponse('Disabled account')
 
             login(request, user)
-            return HttpResponse('Authenticated successfully')
+            return redirect('home')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -44,8 +46,8 @@ def register(request):
             user.set_password(form.cleaned_data['password'])
             # Save User object
             user.save()
-            # return redirect('login')
-            return render(request, 'login.html', {'user': user})
+            return redirect('login')
+            # return render(request, 'login.html', {'user': user})
 
     else:
         form = UserRegistrationForm()

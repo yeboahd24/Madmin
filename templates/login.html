@@ -36,7 +36,7 @@
           <div class="col s12 m8 offset-m2 l6 offset-l3">
             <div class="card-panel login blue darken-2 white-text center">
               <h2>Madmin Login</h2>
-              <form method="POST">
+              <form method="POST" id="loginForm">
                 {% csrf_token %}
                 <div class="input-field">
                   <i class="material-icons prefix">email</i>
@@ -51,6 +51,7 @@
                 <input
                   type="submit"
                   value="Login"
+                  name="submit"
                   class="btn btn-large btn-extended grey lighten-4 black-text"
                 />
               </form>
@@ -90,9 +91,32 @@
       src="{% static 'js/materialize.min.js' %}"
     ></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
       // Hide Sections
       $(".section").hide();
+
+      // Ajax
+      $(document).on("submit", "#loginForm", function(e){
+        e.preventDefault();
+        $.ajax({
+          url:"{% url 'login' %}",
+          type: "POST",
+          dataType: "text",
+          data:{
+              email: $("#email").val(),
+              password: $("#password").val(),
+              csrfmiddlewaretoken: "{% csrf_token %}",
+          },
+
+          success:function(response){
+            alert('Successfully login');
+          }
+          
+         
+        });
+
+      });
 
       setTimeout(function () {
         $(document).ready(function () {

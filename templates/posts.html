@@ -94,7 +94,7 @@
   <div id="post-modal" class="modal">
     <div class="modal-content">
       <h4>Add Post</h4>
-      <form method="POST">{% csrf_token %}
+      <form method="POST" id="post-form">{% csrf_token %}
         <div class="input-field">
           <input type="text" id="title" name="title">
           <label for="title">Title</label>
@@ -118,6 +118,7 @@
                   type="submit"
                   value="Submit"
                   class="btn btn-large btn-extended grey lighten-4 black-text"
+                  id="submit"
                 />
       </form>
     
@@ -140,12 +141,37 @@
 
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
   <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 
   <script>
     // Hide Sections
     $('.section').hide();
+
+    // Ajax
+    $(document).on("submit", "#post-form", function(e){
+      e.preventDefault();
+      $.ajax({
+        url: "{% url 'posts' %}",
+        type: "POST",
+        dataType: "text",
+        data: {
+            "title": $("#title").val(),
+            "body": $("#body").val(),
+            "category": $("#category").val(),
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+
+        },
+        success:function(response){
+          alert("successfully saved");
+        }
+
+    });
+
+
+
+        });
 
     setTimeout(function () {
       $(document).ready(function () {
@@ -165,6 +191,7 @@
         $('select').material_select();
 
         CKEDITOR.replace('body');
+
 
       });
     }, 1000);
