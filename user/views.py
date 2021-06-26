@@ -56,7 +56,7 @@ def register(request):
 
 def login_view(request):
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.is_ajax():
         form = LoginForm(request.POST)
         form.email = request.POST.get('email', '')
         form.password = request.POST.get('password', '')

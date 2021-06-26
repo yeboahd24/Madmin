@@ -286,12 +286,9 @@
     </div>
 
     <!--Import jQuery before materialize.js-->
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-    ></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js" integrity="sha512-FJ2OYvUIXUqCcPf1stu+oTBlhn54W0UisZB/TNrZaVMHHhYvLBV9jMbvJYtvDe5x/WVaoXZ6KB+Uqe5hT2vlyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
     <script src="{% static 'js/chart.js' %}"></script>
 
@@ -369,7 +366,7 @@
             e.preventDefault();
           });
 
-          CKEDITOR.replace("body");
+          // CKEDITOR.replace("body");
         });
       }, 1000);
     </script>
