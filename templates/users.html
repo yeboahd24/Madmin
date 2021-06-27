@@ -3,168 +3,170 @@
 <html>
 
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}" />
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Users Page</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Page</title>
 </head>
 
 <body class="grey lighten-4">
-  <nav class="blue darken-2">
-    <div class="container">
-      <div class="nav-wrapper">
-        <a href="{% url 'home' %}" class="brand-logo">Madmin</a>
-        <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li>
-            <a href="{% url 'home' %}">Dashboard</a>
-          </li>
-          <li>
-            <a href="{% url 'posts' %}">Posts</a>
-          </li>
-
-          <li>
-            <a href="{% url 'comments' %}">Comments</a>
-          </li>
-          
-          <li>
-            <a href="{% url 'categories' %}">Categories</a>
-          </li>
-          <li class="active">
-            <a href="{% url 'register' %}">Users</a>
-          </li>
-        </ul>
-        <!-- Side nav -->
-        {% include 'navbar.html' %}
-  <!-- Section: Users -->
-  <section class="section section-users grey lighten-4">
-    <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">Users</span>
-              
-              <table class="striped">
-                {% for s in users %}
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td width="70">
-                      <img src="{% static 'img/person1.jpg' %}" alt="" class="responsive-img circle" style="width: 40px;margin-left:10px;">
-                    </td>
-                    <td>{{s.username}}</td>
-                    <td>{{s.email}}</td>
-                    {% endfor %}
-                  </tr>
-                 
-                  
-                </tbody>
-              </table>
-              
+    <nav class="blue darken-2">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{% url 'home' %}" class="brand-logo">Madmin</a>
+                <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="{% url 'home' %}">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'posts' %}">Posts</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'comments' %}">Comments</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'categories' %}">Categories</a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'register' %}">Users</a>
+                    </li>
+                </ul>
+                <!-- Side nav -->
+                {% include 'navbar.html' %}
+                <!-- Section: Users -->
+                <section class="section section-users grey lighten-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <span class="card-title">Users</span>
+                                        <table class="striped">
+                                            {% for s in users %}
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td width="70">
+                                                        <img src="{% static 'img/person1.jpg' %}" alt="" class="responsive-img circle" style="width: 40px;margin-left:10px;">
+                                                    </td>
+                                                    <td>{{s.username}}</td>
+                                                    <td>{{s.email}}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="card-action">
+                                            <ul class="pagination">
+                                                <span class="step-links">
+                                                    {% if users.has_previous %}
+                                                    <a class="blue-text" href="?page={{ users.previous_page_number }}"><i class="material-icons"></i>previous</a>
+                                                    {% endif %}
+                                                    <span class="current">
+                                                        <li class="waves-effect">
+                                                            <a href="{{ users.number }}" class="blue-text"></a>
+                                                        </li>
+                                                    </span>
+                                                    {% if users.has_next %}
+                                                    <a class="blue-text" href="?page={{ users.next_page_number }}">
+                                                        <i class="material-icons"></i>next</a>
+                                                    {% endif %}
+                                                </span>
+                                                <li class="waves-effect">
+                                        </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
-           
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+            </section>
+            <!-- Footer -->
+            <footer class="section blue darken-2 white-text center">
+                <p>Madmin Panel Copyright &copy; 2018</p>
+            </footer>
+            <!-- Fixed Action Button -->
+            <div class="fixed-action-btn">
+                <a href="#user-modal" class="modal-trigger btn-floating btn-large red">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+            <!-- Add User Modal -->
+            <div id="user-modal" class="modal">
+                <div class="modal-content">
+                    <h4>Add User</h4>
+                    <form method="POST">{% csrf_token %}
+                        <div class="input-field">
+                            <input type="text" id="name" name="username">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="email" id="email" name="email">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" id="password" name="password">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" id="password2" name="password2">
+                            <label for="password2">Confirm Password</label>
+                        </div>
+                        <input type="submit" value="Signup" class="btn btn-large btn-extended blue lighten-4 black-text" />
+                    </form>
+                </div>
+                <!-- Preloader -->
+                <div class="loader preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Import jQuery before materialize.js-->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+                <script>
+                // Hide Sections
+                $('.section').hide();
 
-  <!-- Footer -->
-  <footer class="section blue darken-2 white-text center">
-    <p>Madmin Panel Copyright &copy; 2018</p>
-  </footer>
+                setTimeout(function() {
+                    $(document).ready(function() {
+                        // Show sections
+                        $('.section').fadeIn();
 
-  <!-- Fixed Action Button -->
-  <div class="fixed-action-btn">
-    <a href="#user-modal" class="modal-trigger btn-floating btn-large red">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
+                        // Hide preloader
+                        $('.loader').fadeOut();
 
-  <!-- Add User Modal -->
-  <div id="user-modal" class="modal">
-    <div class="modal-content">
-      <h4>Add User</h4>
-      <form method="POST">{% csrf_token %}
-        <div class="input-field">
-          <input type="text" id="name" name="username">
-          <label for="name">Name</label>
-        </div>
-        <div class="input-field">
-          <input type="email" id="email" name="email">
-          <label for="email">Email</label>
-        </div>
-        <div class="input-field">
-          <input type="password" id="password" name="password">
-          <label for="password">Password</label>
-        </div>
-        <div class="input-field">
-          <input type="password" id="password2" name="password2">
-          <label for="password2">Confirm Password</label>
-        </div>
-          <input
-                  type="submit"
-                  value="Signup"
-                  class="btn btn-large btn-extended blue lighten-4 black-text"
-                />
-      </form>
-  </div>
+                        //Init Side nav
+                        $('.button-collapse').sideNav();
 
-  <!-- Preloader -->
-  <div class="loader preloader-wrapper big active">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
+                        // Init Modal
+                        $('.modal').modal();
 
-  <!--Import jQuery before materialize.js-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-
-  <script>
-    // Hide Sections
-    $('.section').hide();
-
-    setTimeout(function () {
-      $(document).ready(function () {
-        // Show sections
-        $('.section').fadeIn();
-
-        // Hide preloader
-        $('.loader').fadeOut();
-
-        //Init Side nav
-        $('.button-collapse').sideNav();
-
-        // Init Modal
-        $('.modal').modal();
-
-      });
-    }, 1000);
-  </script>
+                    });
+                }, 1000);
+                </script>
 </body>
 
 </html>

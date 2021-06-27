@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Category, CategoryIndexTitle
+from .models import MadminCategory, CategoryIndexTitle
 
 
-@admin.register(Category)
+@admin.register(MadminCategory)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',), }
 

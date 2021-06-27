@@ -132,3 +132,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'user.authentication.EmailAuthBackend',
 ]
+
+
+DATE_INPUT_FORMATS = ("%d-%m-%Y", "%Y-%m-%d", "%d/%m/%Y",)

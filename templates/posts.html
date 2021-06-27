@@ -3,199 +3,216 @@
 <html>
 
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}" />
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Post Page</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Page</title>
 </head>
 
 <body class="grey lighten-4">
-  <nav class="blue darken-2">
-    <div class="container">
-      <div class="nav-wrapper">
-        <a href="{% url 'home' %}" class="brand-logo">Madmin</a>
-        <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li>
-            <a href="{% url 'home' %}">Dashboard</a>
-          </li>
-          <li class="active">
-            <a href="{% url 'posts' %}">Posts</a>
-          </li>
-          <li>
-            <a href="{% url 'categories' %}">Categories</a>
-          </li>
-          <li>
-            <a href="{% url 'comments' %}">Comments</a>
-          </li>
-          <li>
-            <a href="{% url 'register' %}">Users</a>
-          </li>
-        </ul>
-        <!-- Side nav -->
-          {% include 'navbar.html' %}
-  <!-- Section: Posts -->
-  <section class="section section-posts grey lighten-4">
-    <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">Posts</span>
-              <table class="striped">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Date Created</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for category in categories %}
-                  <tr>
-                    <td>{{category.title}}</td>
-                    <td>{{category.category}}</td>
-                    <td>{{category.date}}</td>
-                    <td>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                  </tbody>
-              </table>
+    <nav class="blue darken-2">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{% url 'home' %}" class="brand-logo">Madmin</a>
+                <a href="#" data-activates="side-nav" class="button-collapse show-on-large right">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="{% url 'home' %}">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'posts' %}">Posts</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'categories' %}">Categories</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'comments' %}">Comments</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %}">Users</a>
+                    </li>
+                </ul>
+                <!-- Side nav -->
+                {% include 'navbar.html' %}
+                <!-- Section: Posts -->
+                <section class="section section-posts grey lighten-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <span class="card-title">Posts</span>
+                                        <table class="striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>Category</th>
+                                                    <th>Date Created</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for category in categories %}
+                                                <tr>
+                                                    <td>{{category.title}}</td>
+                                                    <td>{{category.category}}</td>
+                                                    <td>{{category.date}}</td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-action">
+                                        <ul class="pagination">
+                                            <span class="step-links">
+                                                {% if categories.has_previous %}
+                                                <a class="blue-text" href="?page={{ categories.previous_page_number }}"><i class="material-icons"></i>previous</a>
+                                                {% endif %}
+                                                <span class="current">
+                                                    <li class="waves-effect">
+                                                        <a href="{{ categories.number }}" class="blue-text"></a>
+                                                    </li>
+                                                </span>
+                                                {% if categories.has_next %}
+                                                <a class="blue-text" href="?page={{ categories.next_page_number }}">
+                                                    <i class="material-icons"></i>next</a>
+                                                {% endif %}
+                                            </span>
+                                            <li class="waves-effect">
+                                    </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
-           
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+            </section>
+            <!-- Footer -->
+            <footer class="section blue darken-2 white-text center">
+                <p>Madmin Panel Copyright &copy; 2018</p>
+            </footer>
+            <!-- Fixed Action Button -->
+            <div class="fixed-action-btn">
+                <a href="#post-modal" class="modal-trigger btn-floating btn-large red">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+            <!-- Add Post Modal -->
+            <div id="post-modal" class="modal">
+                <div class="modal-content">
+                    <h4>Add Post</h4>
+                    <form method="POST" id="post-form">{% csrf_token %}
+                        <div class="input-field">
+                            <input type="text" id="title" name="title">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" class="datepicker" name="date" id="date">
+                            <label for="date">Date</label>
+                        </div>
+                        <div class="input-field">
+                            <select name="category">
+                                <option value="" disabled selected>Select option</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Graphic Design">Graphic Design</option>
+                                <option value="Tech Gadgets">Tech Gadgets</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <label>Category</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea name="body" id="body" class="materialize-textarea"></textarea>
+                            <label for="body">Body</label>
+                        </div>
+                        <input type="submit" value="Submit" class="btn btn-large btn-extended grey lighten-4 black-text" id="submit" />
+                    </form>
+                </div>
+                <!-- Preloader -->
+                <div class="loader preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Import jQuery before materialize.js-->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                {# // <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> #}
+                <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+                <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+                <script>
+                // Hide Sections
+                $('.section').hide();
 
-  <!-- Footer -->
-  <footer class="section blue darken-2 white-text center">
-    <p>Madmin Panel Copyright &copy; 2018</p>
-  </footer>
+                $(".datepicker").datepicker({
+                    dateFormat: "dd-mm-yy"
+                });
 
-  <!-- Fixed Action Button -->
-  <div class="fixed-action-btn">
-    <a href="#post-modal" class="modal-trigger btn-floating btn-large red">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
+                // Ajax
+                $(document).on("submit", "#post-form", function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: "{% url 'posts' %}",
+                        type: "POST",
+                        dataType: "text",
+                        data: {
+                            "title": $("#title").val(),
+                            "body": $("#body").val(),
+                            "category": $("#category").val(),
+                            "date": $("#date").val(),
+                            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
 
-  <!-- Add Post Modal -->
-  <div id="post-modal" class="modal">
-    <div class="modal-content">
-      <h4>Add Post</h4>
-      <form method="POST" id="post-form">{% csrf_token %}
-        <div class="input-field">
-          <input type="text" id="title" name="title">
-          <label for="title">Title</label>
-        </div>
-        <div class="input-field">
-          <select name="category">
-            <option value="" disabled selected>Select option</option>
-            <option value="Web Development">Web Development</option>
-            <option value="Graphic Design">Graphic Design</option>
-            <option value="Tech Gadgets">Tech Gadgets</option>
-            <option value="Other">Other</option>
-          </select>
-          <label>Category</label>
-        </div>
-        <div class="input-field">
-          <textarea name="body" id="body" class="materialize-textarea"></textarea>
-          <label for="body">Body</label>
-        </div>
+                        },
+                        success: function(response) {
+                            alert("successfully saved");
+                        }
 
-            <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-large btn-extended grey lighten-4 black-text"
-                  id="submit"
-                />
-      </form>
-    
-  </div>
-
-  <!-- Preloader -->
-  <div class="loader preloader-wrapper big active">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
-
-  <!--Import jQuery before materialize.js-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-  <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-
-  <script>
-    // Hide Sections
-    $('.section').hide();
-
-    // Ajax
-    $(document).on("submit", "#post-form", function(e){
-      e.preventDefault();
-      $.ajax({
-        url: "{% url 'posts' %}",
-        type: "POST",
-        dataType: "text",
-        data: {
-            "title": $("#title").val(),
-            "body": $("#body").val(),
-            "category": $("#category").val(),
-            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-
-        },
-        success:function(response){
-          alert("successfully saved");
-        }
-
-    });
+                    });
 
 
 
-        });
+                });
 
-    setTimeout(function () {
-      $(document).ready(function () {
-        // Show sections
-        $('.section').fadeIn();
+                setTimeout(function() {
+                    $(document).ready(function() {
+                        // Show sections
+                        $('.section').fadeIn();
 
-        // Hide preloader
-        $('.loader').fadeOut();
+                        // Hide preloader
+                        $('.loader').fadeOut();
 
-        //Init Side nav
-        $('.button-collapse').sideNav();
+                        //Init Side nav
+                        $('.button-collapse').sideNav();
 
-        // Init Modal
-        $('.modal').modal();
+                        // Init Modal
+                        $('.modal').modal();
 
-        // Init Select
-        $('select').material_select();
-
-        CKEDITOR.replace('body');
+                        // Init Select
+                        $('select').material_select();
 
 
-      });
-    }, 1000);
-  </script>
+                        CKEDITOR.replace('body');
+
+
+                    });
+                }, 1000);
+                </script>
 </body>
 
 </html>

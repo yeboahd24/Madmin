@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Category, CategoryIndexTitle
+from .models import MadminCategory, CategoryIndexTitle
 
 class LoginForm(forms.Form):
     email = forms.EmailField(required=True)
@@ -26,6 +26,6 @@ class UserRegistrationForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     
     class Meta:
-        model = Category
+        model = MadminCategory
         fields = ('title', 'category', 'body')
 
