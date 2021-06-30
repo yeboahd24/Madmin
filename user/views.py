@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
-from .models import  MadminCategory, CategoryIndexTitle
+from .models import  MadminCategory, CategoryIndexTitle, Comments
 from datetime import date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -93,6 +93,8 @@ def login_view(request):
 
 def home(request):
 
+    comments = Comments.objects.all().count()
+
     users = User.objects.all().count()
     category = MadminCategory.objects.all()[:10]
     
@@ -117,7 +119,7 @@ def home(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'index.html', {'form': form, 'users':users,\
-     'categories':category, 'posts':posts})
+     'categories':category, 'posts':posts, 'comments':comments})
 
 
     
@@ -169,7 +171,24 @@ def post(request):
 
 
 def comments(request):
-    return render(request, 'comments.html')
+    comments = Comments.objects.all()
+    comment = Comments()
+
+    page = request.GET.get('page', 1) # first page
+    paginator = Paginator(comments, 5) # no of pages
+
+    try:
+        comment_ = paginator.page(page)
+    except PageNotAnInteger:
+        comment_ = paginator.page(1)
+    except EmptyPage:
+        comment_ = paginator.page(paginator.num_pages)
+   
+
+    if request.method == "POST":
+        comment.body = request.POST.get("comment")
+        comment.save()
+    return render(request, 'comments.html', {'comments':comment_})
 
 
 def logout_view(request):
