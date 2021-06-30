@@ -12,7 +12,7 @@ class MadminCategory(models.Model):
 	title = models.CharField(max_length=200, null=True)
 	category = models.CharField(max_length=300, choices=CATEGORY_CHOICE, null=True)
 	body = models.TextField(max_length=500, null=True, blank=True)
-	slug = models.SlugField(max_length=200)
+	slug = models.SlugField(max_length=200, null=True)
 	date = models.DateField(max_length=200, null=True)
 
 
@@ -33,3 +33,5 @@ class CategoryIndexTitle(models.Model):
 	def __str__(self):
 		return self.name
     
+class Comments(models.Model):
+	body = models.TextField(max_length=200, null=True, blank=True)

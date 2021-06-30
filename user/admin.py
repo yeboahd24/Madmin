@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MadminCategory, CategoryIndexTitle
+from .models import MadminCategory, CategoryIndexTitle, Comments
 
 
 @admin.register(MadminCategory)
@@ -8,3 +8,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CategoryIndexTitle)
+admin.site.register(Comments)

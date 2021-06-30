@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
-from .models import  MadminCategory
+from .models import  MadminCategory, CategoryIndexTitle
 from datetime import date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -63,7 +63,7 @@ def register(request):
 
     else:
         form = UserRegistrationForm()
-    return render(request, 'users.html', {'form': form, 'users': users})
+    return render(request, 'users.html', {'form': form, 'users': user})
 
 
 def login_view(request):
@@ -95,6 +95,9 @@ def home(request):
 
     users = User.objects.all().count()
     category = MadminCategory.objects.all()[:10]
+    
+    # post count
+    posts = MadminCategory.objects.all().count()
 
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -113,14 +116,31 @@ def home(request):
 
     else:
         form = UserRegistrationForm()
-    return render(request, 'index.html', {'form': form, 'users':users, 'categories':category})
+    return render(request, 'index.html', {'form': form, 'users':users,\
+     'categories':category, 'posts':posts})
 
 
     
 
 def list_categories(request):
     category = MadminCategory.objects.all()
-    return render(request, 'categories.html', {'categories':category})
+    add_title = CategoryIndexTitle()
+
+    # post request
+    if request.method == "POST":
+        add_title.name = request.POST.get('title')
+        add_title.save()
+
+    page = request.GET.get('page', 1) # first page
+    paginator = Paginator(category, 5) # no of pages
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'categories.html', {'categories':posts})
 
 
 
@@ -141,7 +161,7 @@ def post(request):
     if request.method == 'POST':
         cat.title = request.POST.get('title')
         cat.category = request.POST.get('category')
-        cat.body = request.POST.get('body')
+        cat.body = request.POST.get('body').strip()
         cat.date = request.POST.get('date')
         cat.save()
     return render(request, 'posts.html', {'categories':cats})
